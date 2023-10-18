@@ -2,6 +2,7 @@ package com.fixplz.category.domain.aggregate.entity;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -20,4 +21,30 @@ public class Category {
 
     @Column
     private String categoryExample;
+
+    @lombok.Builder
+    public Category(Builder builder) {
+        this.categoryName = builder.categoryName;
+        this.categoryExample = builder.categoryExample;
+    }
+
+    public static class Builder {
+        private String categoryName;
+        private String categoryExample;
+
+        public Builder categoryName(String categoryName) {
+            this.categoryName = categoryName;
+            return this;
+        }
+
+        public Builder categoryExample(String categoryExample) {
+            this.categoryExample = categoryExample;
+            return this;
+        }
+
+        public Category builder() {
+            return new Category(this);
+        }
+
+    }
 }
