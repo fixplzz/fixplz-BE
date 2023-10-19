@@ -12,7 +12,7 @@ import java.util.Date;
 @Entity
 @Getter
 @Table(name = "TBL_REPLY")
-@NoArgsConstructor(access = AccessLevel.PROTECTED, force = true)
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Reply {
 
     @Id
