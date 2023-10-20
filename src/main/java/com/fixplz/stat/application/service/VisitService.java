@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 public class VisitService {
 
     /* 일일 방문자 등록하는 메소드 - 조만제 */
-    public void countVisitor() {
+    public void countDailyVisitor() {
 
     }
 
