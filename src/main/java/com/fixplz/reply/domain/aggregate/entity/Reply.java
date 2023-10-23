@@ -38,4 +38,10 @@ public class Reply {
         this.date = date;
         this.postNoVO = postNoVO;
     }
+
+    public void update(String title, String content, Date date) {
+        this.title = title;
+        this.content = content;
+        this.date = date;
+    }
 }
