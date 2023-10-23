@@ -19,9 +19,9 @@ public interface VisitorDomainRepository extends JpaRepository<Visitor, Long> {
 
     // 오늘 날짜의 방문자 수 +1 증가 메소드 - 조만제
     @Modifying
-    @Query(value = "UPDATE TBL_VISITOR" +
-            " SET VISITOR_COUNT = VISITOR_COUNT + 1" +
-            " WHERE VISIT_DATE = :visitDate", nativeQuery = true)
+    @Query(value = "UPDATE tbl_visitor" +
+            " SET visitor_count = visitor_count + 1" +
+            " WHERE visit_date = :visitDate", nativeQuery = true)
     int updateByToday(@Param("visitDate") LocalDate visitDate);
 
 }
