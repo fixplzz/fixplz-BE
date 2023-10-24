@@ -11,6 +11,7 @@ import com.fixplz.reply.domain.aggregate.vo.PostNoVO;
 import com.fixplz.reply.domain.repository.ReplyRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 
 import java.text.SimpleDateFormat;
@@ -23,6 +24,7 @@ public class ReplyService {
     private final ReplyRepository replyRepository;
 
     // 답변 생성
+    @Transactional
     public CreateReplyResponse createReply(CreateReplyRequest request) {
 
         // 게시글이 존재하는지 확인하는 로직
@@ -45,6 +47,7 @@ public class ReplyService {
     }
 
     // 답변 수정
+    @Transactional
     public UpdateReplyResponse updateReply(UpdateReplyRequest request) {
 
         Reply reply = replyRepository.findById(request.replyNo())
@@ -68,6 +71,7 @@ public class ReplyService {
     }
 
     // 답변 삭제
+    @Transactional
     public DeleteReplyResponse deleteReply(DeleteReplyRequest request) {
 
         Reply reply = replyRepository.findById(request.replyNo())
@@ -78,5 +82,4 @@ public class ReplyService {
         return new DeleteReplyResponse(reply.getReplyNo());
     }
 
-    // TODO -> 답변 조회 기능
 }

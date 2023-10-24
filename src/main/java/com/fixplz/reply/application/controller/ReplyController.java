@@ -10,16 +10,18 @@ import com.fixplz.reply.application.dto.response.CreateReplyResponse;
 import com.fixplz.reply.application.service.ReplyService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
+@RequestMapping(value = "/api/v1")
 public class ReplyController {
 
     private final ReplyService replyService;
 
     // 답변 생성
-    public ResponseEntity<ApiResponse> createReply(CreateReplyRequest request) {
+    @PostMapping("/reply")
+    public ResponseEntity<ApiResponse> createReply(@RequestBody CreateReplyRequest request) {
 
         // TODO -> 사용자가 관리자인지 확인하는 로직
 
@@ -29,7 +31,8 @@ public class ReplyController {
     }
 
     // 답변 수정
-    public ResponseEntity<ApiResponse> updateReply(UpdateReplyRequest request) {
+    @PutMapping("/reply")
+    public ResponseEntity<ApiResponse> updateReply(@RequestBody UpdateReplyRequest request) {
 
         // TODO -> 사용자가 관리자인지 확인하는 로직
 
@@ -39,7 +42,8 @@ public class ReplyController {
     }
 
     // 답변 삭제
-    public ResponseEntity<ApiResponse> deleteReply(DeleteReplyRequest request) {
+    @DeleteMapping("/reply")
+    public ResponseEntity<ApiResponse> deleteReply(@RequestBody DeleteReplyRequest request) {
 
         // TODO -> 사용자가 관리자인지 확인하는 로직
 
