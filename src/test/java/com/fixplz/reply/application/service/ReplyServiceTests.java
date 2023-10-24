@@ -48,13 +48,13 @@ public class ReplyServiceTests {
 
         CreateReplyRequest replyRequest = new CreateReplyRequest("제목", "내용", 1L);
         CreateReplyResponse replyResponse = replyService.createReply(replyRequest);
-        Reply createdReply = replyRepository.findById(replyResponse.getReplyNo()).get();
+        Reply createdReply = replyRepository.findById(replyResponse.replyNo()).get();
 
         String beforeTitle = createdReply.getTitle();
 
-        UpdateReplyRequest request = new UpdateReplyRequest(replyResponse.getReplyNo(), "제목 수정", "내용 수정");
+        UpdateReplyRequest request = new UpdateReplyRequest(replyResponse.replyNo(), "제목 수정", "내용 수정");
         UpdateReplyResponse response = replyService.updateReply(request);
-        Reply updateReply = replyRepository.findById(response.getReplyNo()).get();
+        Reply updateReply = replyRepository.findById(response.replyNo()).get();
 
         String afterContent = updateReply.getContent();
 
@@ -81,7 +81,7 @@ public class ReplyServiceTests {
 
         CreateReplyRequest replyRequest = new CreateReplyRequest("제목", "내용", 1L);
         CreateReplyResponse replyResponse = replyService.createReply(replyRequest);
-        Reply createdReply = replyRepository.findById(replyResponse.getReplyNo()).get();
+        Reply createdReply = replyRepository.findById(replyResponse.replyNo()).get();
 
         long beforeCnt = replyRepository.count();
 
@@ -91,7 +91,7 @@ public class ReplyServiceTests {
         long afterCnt = replyRepository.count();
 
         Assertions.assertEquals(beforeCnt - 1, afterCnt);
-        Assertions.assertEquals(createdReply.getReplyNo(), response.getReplyNo());
+        Assertions.assertEquals(createdReply.getReplyNo(), response.replyNo());
 
     }
 
