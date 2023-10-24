@@ -6,6 +6,7 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.ColumnDefault;
 
 import java.time.LocalDate;
 
@@ -18,10 +19,11 @@ public class Visitor {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long visitorNo;
 
-    @Column(nullable = false)
+    @Column
     LocalDate visitDate;
 
     @Column(nullable = false)
+    @ColumnDefault("1")
     int visitorCount;
 
     @Builder

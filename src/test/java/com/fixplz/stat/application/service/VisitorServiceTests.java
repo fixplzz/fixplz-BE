@@ -11,6 +11,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.time.LocalDate;
 
 @SpringBootTest
+@DisplayName("방문자 관련 테스트 케이스")
 class VisitorServiceTests {
     private final LocalDate TODAY = LocalDate.now();
     @Autowired
@@ -19,7 +20,7 @@ class VisitorServiceTests {
     private VisitorDomainRepository visitorDomainRepository;
 
     @Test
-    @DisplayName("일일 방문자 통계 조회 테스트: 오늘 날짜의 통계 없을 경우")
+    @DisplayName("일일 방문자 통계 조회 테스트: 오늘 날짜의 통계 있을 경우")
     void countDailyVisitorTest1() {
         //given
         visitorDomainRepository.save(Visitor.builder()
@@ -28,18 +29,24 @@ class VisitorServiceTests {
                 .build());
         //when
         int result = visitorService.countDailyVisitor();
+        int todayCount = visitorDomainRepository
+                .findByVisitDate(TODAY)
+                .getVisitorCount();
         //then
-        Assertions.assertEquals(1, result);
+        Assertions.assertEquals(todayCount, result);
     }
 
     @Test
-    @DisplayName("일일 방문자 통계 조회 테스트: 오늘 날짜의 통계 있을 경우")
+    @DisplayName("일일 방문자 통계 조회 테스트: 오늘 날짜의 통계 없을 경우")
     void countDailyVisitorTest2() {
         //given
         visitorDomainRepository.deleteAllInBatch();
         //when
         int result = visitorService.countDailyVisitor();
+        int todayCount = visitorDomainRepository
+                .findByVisitDate(TODAY)
+                .getVisitorCount();
         //then
-        Assertions.assertEquals(1, result);
+        Assertions.assertEquals(todayCount, result);
     }
 }
