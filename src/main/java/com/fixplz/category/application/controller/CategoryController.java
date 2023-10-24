@@ -20,6 +20,7 @@ public class CategoryController {
 
     @PostMapping
     public ResponseEntity<ApiResponse> createCategory(CategoryCreateRequest request) {
+        System.out.println("request = " + request);
         CategoryResponse response = categoryService.createCategory(request);
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(ApiResponse.success("성공적으로 등록되었습니다.", response));

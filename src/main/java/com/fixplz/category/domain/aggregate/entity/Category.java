@@ -22,7 +22,6 @@ public class Category {
     @Column
     private String categoryExample;
 
-    @lombok.Builder
     public Category(Builder builder) {
         this.categoryName = builder.categoryName;
         this.categoryExample = builder.categoryExample;
