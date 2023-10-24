@@ -1,15 +1,11 @@
 package com.fixplz.reply.application.dto.response;
 
-import lombok.Getter;
-import lombok.Setter;
-
-@Getter
-@Setter
-public class CreateReplyResponse {
-
-    private Long replyNo;
-
-    public CreateReplyResponse(Long replyNo) {
-        this.replyNo = replyNo;
+public record CreateReplyResponse (
+        Long replyNo
+){
+    public static CreateReplyResponse from(Long replyNo) {
+        return new CreateReplyResponse(
+                replyNo
+        );
     }
 }

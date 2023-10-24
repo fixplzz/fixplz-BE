@@ -4,4 +4,4 @@ public record CreateReplyRequest (
         String title,
         String content,
         Long postNo
-) { }
+){ }

@@ -1,7 +1,7 @@
 package com.fixplz.reply.application.dto.request;
 
 public record UpdateReplyRequest (
-        Long replyNO,
+        Long replyNo,
         String title,
         String content
 ){ }

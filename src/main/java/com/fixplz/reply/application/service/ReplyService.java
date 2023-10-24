@@ -27,11 +27,16 @@ public class ReplyService {
 
         // 게시글이 존재하는지 확인하는 로직
 
-        PostNoVO postNoVO = new PostNoVO(request.getPostNo());
+        PostNoVO postNoVO = new PostNoVO(request.postNo());
 
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd a hh:mm:ss");
 
-        Reply reply = new Reply(request.getTitle(), request.getContent(), new Date(), postNoVO);
+        Reply reply = new Reply.Builder()
+                .title(request.title())
+                .content(request.content())
+                .date(new Date())
+                .postNoVo(postNoVO)
+                .build();
 
         Reply createdReply = replyRepository.save(reply);
 
@@ -42,18 +47,18 @@ public class ReplyService {
     // 답변 수정
     public UpdateReplyResponse updateReply(UpdateReplyRequest request) {
 
-        Reply reply = replyRepository.findById(request.getReplyNo())
+        Reply reply = replyRepository.findById(request.replyNo())
                 .orElseThrow(() -> new IllegalArgumentException("존재하지않는 답변입니다."));
 
         String updateTitle = reply.getTitle();
         String updateContent = reply.getContent();
 
-        if (!request.getTitle().isEmpty()) {
-            updateTitle = request.getTitle();
+        if (!request.title().isEmpty()) {
+            updateTitle = request.title();
         }
 
-        if (!request.getContent().isEmpty()) {
-            updateContent = request.getContent();
+        if (!request.content().isEmpty()) {
+            updateContent = request.content();
         }
 
         reply.update(updateTitle, updateContent, new Date());
@@ -65,7 +70,7 @@ public class ReplyService {
     // 답변 삭제
     public DeleteReplyResponse deleteReply(DeleteReplyRequest request) {
 
-        Reply reply = replyRepository.findById(request.getReplyNo())
+        Reply reply = replyRepository.findById(request.replyNo())
                 .orElseThrow(() -> new IllegalArgumentException("존재하지않는 답변입니다."));
 
         replyRepository.delete(reply);
