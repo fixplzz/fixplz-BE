@@ -172,15 +172,14 @@ class CategoryServiceTest {
     void deleteCategory() {
 
         // given
-        categoryRepository.save(new Category.Builder()
-                .categoryNo(1L)
+        Category insertedCategory = categoryRepository.save(new Category.Builder()
                 .categoryName("test")
                 .categoryExample("test")
                 .builder());
 
         // when & then
         Assertions.assertThatCode(
-                () -> categoryService.deleteCategory(1L)
+                () -> categoryService.deleteCategory(insertedCategory.getCategoryNo())
         ).doesNotThrowAnyException();
     }
 
