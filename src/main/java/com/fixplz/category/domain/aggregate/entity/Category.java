@@ -16,20 +16,33 @@ public class Category {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long categoryNo;
 
-    @Column
+    @Column(unique = true)
     private String categoryName;
 
     @Column
     private String categoryExample;
 
     public Category(Builder builder) {
+        this.categoryNo = builder.categoryNo;
         this.categoryName = builder.categoryName;
         this.categoryExample = builder.categoryExample;
     }
 
+    public void update(String categoryName, String categoryExample) {
+        this.categoryName = categoryName;
+        this.categoryExample = categoryExample;
+    }
+
     public static class Builder {
+
+        private Long categoryNo;
         private String categoryName;
         private String categoryExample;
+
+        public Builder categoryNo(Long categoryNo) {
+            this.categoryNo = categoryNo;
+            return this;
+        }
 
         public Builder categoryName(String categoryName) {
             this.categoryName = categoryName;
