@@ -10,8 +10,8 @@ public interface CategoryRepository extends JpaRepository<Category, Long> {
 
 
     @Modifying(clearAutomatically = true)
-    @Query(value = "DELETE " +
-                     "FROM TBL_CATEGORY " +
-                    "WHERE CATEGORY_NO = :categoryNo", nativeQuery = true)
+    @Query(value = "delete " +
+                     "from tbl_category " +
+                    "where category_no = :categoryNo", nativeQuery = true)
     int deleteByCategoryNo(@Param("categoryNo") Long categoryNo);
 }
