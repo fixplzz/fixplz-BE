@@ -3,7 +3,7 @@
 </div>
 <br><br>
 
-# 도로 위 성동구
+# 🏙️ 도로 위 성동구
 성동구 공공시설을 이용하면서 불편한 점을 QR을 통해 신고해 주세요!
 <br>
 <br>
@@ -24,13 +24,13 @@
 사용자는 QR코드를 통해 간편하게 서비스를 이용할 수 있습니다.
 <br>
 
-## 개발 환경
+## 🖥️ 개발 환경
 ![IntelliJ](https://img.shields.io/badge/intellJ-ffa4c4?style=flat&logo=IntelliJIDEA)&nbsp;![Github](https://img.shields.io/badge/github-606060?style=fat&logo=github)&nbsp;![VisualStudioCode](https://img.shields.io/badge/vscode-blue?style=flat&logo=VisualStudioCode)&nbsp;
  - IntelliJ 
  - Visual Studio Code
  - GitHub
 
-## 사용 기술
+## 🛠️ 사용 기술
 ![java](https://img.shields.io/badge/Java-17-DEB887?style=flat)&nbsp;
 ![springboot](https://img.shields.io/badge/SpringBoot-3.0.11-3CB371?style=flat&logo=springboot)&nbsp;
 ![spriongsecurity](https://img.shields.io/badge/SpringSecurity-5-3CB371?style=flat&logo=springsecurity)&nbsp;
@@ -58,13 +58,13 @@
 **라이브러리**
 
 
-## 시스템 아키텍처
+## 🖌️ 시스템 아키텍처
 
 
-## Server 아키텍처 
+## 🖌️ Server 아키텍처 
 
 
-## ERD
+## 🖌️ ERD
 ![ERD](https://github.com/fixplzz/fixplz-BE/assets/98208452/7c87744a-d2fa-4724-b134-2e6cf845beca)
 
 ## 📑 API 명세서
@@ -72,13 +72,13 @@
 
 
 ## ⭐핵심 기능⭐
-### 🚀로그인
+### 🚀 로그인
 
-### 🚀신고
+### 🚀 신고
 
-### 🚀통계
+### 🚀 통계
 
-## Dev History
+## 📝 Dev History
 개발과정에서 발생한 에러를 해결했던 기록을 남겼습니다.
 
 ### Error
