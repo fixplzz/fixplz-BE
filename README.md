@@ -1,7 +1,8 @@
+<br>
 <div align="center">
   <img width="200" alt="image" src="https://github.com/fixplzz/fixplz-BE/assets/98208452/b494a8b5-aae5-49d8-b431-6de1beee6b78">
 </div>
-<br><br>
+<br>
 
 # 🏙️ 도로 위 성동구
 성동구 공공시설을 이용하면서 불편한 점을 QR을 통해 신고해 주세요!
