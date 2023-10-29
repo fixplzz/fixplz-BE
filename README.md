@@ -56,7 +56,7 @@
 - Github Actions
 
 **라이브러리**
- - [KakaoMaps API](https://apis.map.kakao.com/)
+
 
 ## 시스템 아키텍처
 
