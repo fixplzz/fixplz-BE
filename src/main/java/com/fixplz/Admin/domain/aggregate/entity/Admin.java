@@ -21,20 +21,15 @@ public class Admin {
     @Column
     private String adminPassword;
 
-    @Column
-    private Status status;
-
     public Admin(Builder builder) {
         this.adminId = builder.adminId;
         this.adminPassword = builder.adminPassword;
-        this.status = builder.status;
 
     }
 
     public static class Builder {
         private String adminId;
         private String adminPassword;
-        private Status status;
 
         public Builder adminId(String adminId) {
             this.adminId = adminId;
@@ -43,11 +38,6 @@ public class Admin {
 
         public Builder adminPassword(String adminPassword) {
             this.adminPassword = adminPassword;
-            return this;
-        }
-
-        public Builder status(Status status) {
-            this.status = status;
             return this;
         }
 
