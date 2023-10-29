@@ -10,10 +10,10 @@
 
 # 📖 목차 
  - [개요](#-개요)
- - [개발 환경](#🖥-개발-환경)
- - [사용 기술](#-사용-기술)
- - [아키텍처](#-시스템-아키텍처) 
- - [ERD](#-erd)
+ - [개발 환경](#%EF%B8%8F-개발-환경)
+ - [사용 기술](#%EF%B8%8F-사용-기술)
+ - [아키텍처](#%EF%B8%8F-시스템-아키텍처) 
+ - [ERD](#%EF%B8%8F-erd)
  - [API 명세서](#-api-명세서)
  - [핵심 기능](#-핵심-기능-)
     - [로그인](#-로그인)
@@ -39,7 +39,7 @@
 ![springboot](https://img.shields.io/badge/SpringBoot-3.0.11-3CB371?style=flat&logo=springboot)&nbsp;
 ![spriongsecurity](https://img.shields.io/badge/SpringSecurity-5-3CB371?style=flat&logo=springsecurity)&nbsp;
 
-![mysql](https://img.shields.io/badge/MySQL-8.0.28-FFA07A?style=flat&logo=mysql)
+![mysql](https://img.shields.io/badge/MySQL-8.0.28-FFA07A?style=flat&logo=mysql)&nbsp;
 
 ![s3](https://img.shields.io/badge/AWS-s3-FF8C00?style=flat&logo=amazons3)&nbsp;
 
