@@ -67,7 +67,7 @@
 
 
 ## 🖌️ Server 아키텍처 
-
+![image](https://github.com/fixplzz/fixplz-BE/assets/98208452/80f7aea5-4a1e-4838-8630-661f09cd93e0)
 
 ## 🖌️ ERD
 ![ERD](https://github.com/fixplzz/fixplz-BE/assets/98208452/7c87744a-d2fa-4724-b134-2e6cf845beca)
