@@ -23,5 +23,4 @@ public interface VisitorDomainRepository extends JpaRepository<Visitor, Long> {
             " set visitor_count = visitor_count + 1" +
             " where visit_date = :visitDate", nativeQuery = true)
     int updateByToday(@Param("visitDate") LocalDate visitDate);
-
 }
