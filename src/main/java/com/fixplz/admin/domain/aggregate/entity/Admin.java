@@ -1,4 +1,4 @@
-package com.fixplz.Admin.domain.aggregate.entity;
+package com.fixplz.admin.domain.aggregate.entity;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;
@@ -21,15 +21,19 @@ public class Admin {
     @Column
     private String adminPassword;
 
+    @Column
+    private String role;
+
     public Admin(Builder builder) {
         this.adminId = builder.adminId;
         this.adminPassword = builder.adminPassword;
-
+        this.role = builder.role;
     }
 
     public static class Builder {
         private String adminId;
         private String adminPassword;
+        private String role;
 
         public Builder adminId(String adminId) {
             this.adminId = adminId;
@@ -38,6 +42,11 @@ public class Admin {
 
         public Builder adminPassword(String adminPassword) {
             this.adminPassword = adminPassword;
+            return this;
+        }
+
+        public Builder role(String role) {
+            this.role = role;
             return this;
         }
 
