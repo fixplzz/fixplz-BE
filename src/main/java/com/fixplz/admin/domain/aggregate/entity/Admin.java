@@ -4,12 +4,16 @@ import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import java.util.Collection;
 
 @Entity
 @Getter
 @Table(name = "TBL_ADMIN")
 @NoArgsConstructor(access = AccessLevel.PROTECTED, force = true)
-public class Admin {
+public class Admin{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,8 +25,8 @@ public class Admin {
     @Column
     private String adminPassword;
 
-    @Column
-    private String role;
+    @Enumerated(EnumType.STRING)
+    private Role role;
 
     public Admin(Builder builder) {
         this.adminId = builder.adminId;
@@ -33,7 +37,7 @@ public class Admin {
     public static class Builder {
         private String adminId;
         private String adminPassword;
-        private String role;
+        private Role role;
 
         public Builder adminId(String adminId) {
             this.adminId = adminId;
@@ -45,7 +49,7 @@ public class Admin {
             return this;
         }
 
-        public Builder role(String role) {
+        public Builder role(Role role) {
             this.role = role;
             return this;
         }
