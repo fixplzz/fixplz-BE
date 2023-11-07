@@ -1,7 +1,11 @@
 package com.fixplz.common.response;
 
 import com.fixplz.common.response.enumtype.ApiStatus;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 
+@Getter
+@RequiredArgsConstructor
 public class ApiResponse {
     ApiStatus status;
     String message;
