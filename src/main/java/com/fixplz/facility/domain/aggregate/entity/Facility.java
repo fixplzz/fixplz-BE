@@ -1,6 +1,7 @@
 package com.fixplz.facility.domain.aggregate.entity;
 
-import com.fixplz.facility.domain.aggregate.vo.FacilityCategoryNoVO;
+import com.fixplz.facility.domain.aggregate.entity.enumtype.FacilityCategory;
+import com.fixplz.facility.domain.aggregate.vo.CoordinateVO;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -20,43 +21,49 @@ public class Facility {
     private String facilityName;
 
     @Column
-    private String facilityLatitude;
+    private String facilityQRUrl;
 
     @Column
-    private String facilityLongitude;
+    private String administrativeDong;
 
     @Column
     private String facilityAddress;
 
     @Column
-    private Enum<FacilityStatus> facilityStatus;
+    private String departmentName;
 
     @Column
-    private int identityNumber;
+    private String departmentCallNumber;
 
     @Embedded
-    private FacilityCategoryNoVO facilityCategoryNoVO;
+    private CoordinateVO coordinateVO;
+
+    @Enumerated(EnumType.STRING)
+    private FacilityCategory facilityCategory;
 
     private Facility(Builder builder) {
         this.facilityNo = builder.facilityNo;
         this.facilityName = builder.facilityName;
-        this.facilityLatitude = builder.facilityLatitude;
-        this.facilityLongitude = builder.facilityLongitude;
+        this.facilityQRUrl = builder.facilityQRUrl;
+        this.administrativeDong = builder.administrativeDong;
         this.facilityAddress = builder.facilityAddress;
-        this.facilityStatus = builder.facilityStatus;
-        this.identityNumber = builder.identityNumber;
-        this.facilityCategoryNoVO = builder.facilityCategoryNoVO;
+        this.departmentName = builder.departmentName;
+        this.departmentCallNumber = builder.departmentCallNumber;
+        this.coordinateVO = builder.coordinateVO;
+        this.facilityCategory = builder.facilityCategory;
+
     }
 
     public static class Builder {
         private Long facilityNo;
         private String facilityName;
-        private String facilityLatitude;
-        private String facilityLongitude;
+        private String facilityQRUrl;
+        private String administrativeDong;
         private String facilityAddress;
-        private Enum<FacilityStatus> facilityStatus;
-        private int identityNumber;
-        private FacilityCategoryNoVO facilityCategoryNoVO;
+        private String departmentName;
+        private String departmentCallNumber;
+        private CoordinateVO coordinateVO;
+        private FacilityCategory facilityCategory;
 
         public static Builder builder() {
             return new Builder();
@@ -72,13 +79,13 @@ public class Facility {
             return this;
         }
 
-        public Builder facilityLatitude(String facilityLatitude) {
-            this.facilityLatitude = facilityLatitude;
+        public Builder facilityQRUrl(String facilityQRUrl) {
+            this.facilityQRUrl = facilityQRUrl;
             return this;
         }
 
-        public Builder facilityLongitude(String facilityLongitude) {
-            this.facilityLongitude = facilityLongitude;
+        public Builder administrativeDong(String administrativeDong) {
+            this.administrativeDong = administrativeDong;
             return this;
         }
 
@@ -87,18 +94,23 @@ public class Facility {
             return this;
         }
 
-        public Builder facilityStatus(Enum<FacilityStatus> facilityStatus) {
-            this.facilityStatus = facilityStatus;
+        public Builder departmentName(String departmentName) {
+            this.departmentName = departmentName;
             return this;
         }
 
-        public Builder identityNumber(int identityNumber) {
-            this.identityNumber = identityNumber;
+        public Builder departmentCallNumber(String departmentCallNumber) {
+            this.departmentCallNumber = departmentCallNumber;
             return this;
         }
 
-        public Builder facilityCategoryNoVO(FacilityCategoryNoVO facilityCategoryNoVO) {
-            this.facilityCategoryNoVO = facilityCategoryNoVO;
+        public Builder coordinateVO(CoordinateVO coordinateVO) {
+            this.coordinateVO = coordinateVO;
+            return this;
+        }
+
+        public Builder facilityCategory(FacilityCategory facilityCategory) {
+            this.facilityCategory = facilityCategory;
             return this;
         }
 
@@ -107,11 +119,5 @@ public class Facility {
         }
 
     }
-
-    public void updateStatus(Enum<FacilityStatus> facilityStatus) {
-        this.facilityStatus = facilityStatus;
-    }
-
-
 
 }
