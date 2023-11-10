@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @Getter
 @Table(name = "TBL_COMPLAINT")
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor(access = AccessLevel.PROTECTED, force = true)
 public class Complaint {
 
     @Id
@@ -35,7 +35,7 @@ public class Complaint {
     private FacilityNoVO facilityNoVO;
 
 
-    private Complaint(Builder builder) {
+    public Complaint(Builder builder) {
         this.complaintNo = builder.complaintNo;
         this.complaintContent = builder.complaintContent;
         this.phoneNumber = builder.phoneNumber;
@@ -58,37 +58,37 @@ public class Complaint {
             return new Builder();
         }
 
-        private Builder complaintNo(Long complaintNo) {
+        public Builder complaintNo(Long complaintNo) {
             this.complaintNo = complaintNo;
             return this;
         }
 
-        private Builder complaintContent(String complaintContent) {
+        public Builder complaintContent(String complaintContent) {
             this.complaintContent = complaintContent;
             return this;
         }
 
-        private Builder phoneNumber(String phoneNumber) {
+        public Builder phoneNumber(String phoneNumber) {
             this.phoneNumber = phoneNumber;
             return this;
         }
 
-        private Builder complaintImage(String complaintImage) {
+        public Builder complaintImage(String complaintImage) {
             this.complaintImage = complaintImage;
             return this;
         }
 
-        private Builder processingStatus(ProcessingStatus processingStatus) {
+        public Builder processingStatus(ProcessingStatus processingStatus) {
             this.processingStatus = processingStatus;
             return this;
         }
 
-        private Builder filterCategory(FilterCategory filterCategory) {
+        public Builder filterCategory(FilterCategory filterCategory) {
             this.filterCategory = filterCategory;
             return this;
         }
 
-        private Builder facilityNoVO(FacilityNoVO facilityNoVO) {
+        public Builder facilityNoVO(FacilityNoVO facilityNoVO) {
             this.facilityNoVO = facilityNoVO;
             return this;
         }

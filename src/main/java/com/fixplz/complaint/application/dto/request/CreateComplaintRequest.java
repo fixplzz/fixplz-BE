@@ -1,10 +1,17 @@
 package com.fixplz.complaint.application.dto.request;
 
-import com.fixplz.complaint.domain.aggregate.vo.FilterCategory;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
 public class CreateComplaintRequest {
 
     String complaintContent;
-    FilterCategory filterCategory;
+    int filterCategory;
+    String phoneNumber;
+    Long facilityNo;
 
 }
