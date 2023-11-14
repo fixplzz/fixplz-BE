@@ -2,7 +2,7 @@
 name: Refactoring
 about: 코드 수정 및 리팩토링
 title: "[REFACTORING] 주차-[도메인]제목"
-labels: "✂️refactor"
+labels: ''
 assignees: ''
 
 ---

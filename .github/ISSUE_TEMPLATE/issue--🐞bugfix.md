@@ -2,7 +2,7 @@
 name: Bug Fix
 about: 버그 고치기
 title: "[bugfix] 주차 - [도메인]제목"
-labels: "\U0001F41Ebugfix"
+labels: ''
 assignees: ''
 
 ---
