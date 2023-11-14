@@ -1,8 +1,8 @@
 ---
 name: Request
 about: 요청하기
-title: "[Request] 주차 - [도메인] 제목"
-labels: "\U0001F64Frequest"
+title: "[REQUEST - Month Week, Year] - [도메인] 제목"
+labels: "\U0001F64F Request"
 assignees: ''
 
 ---
