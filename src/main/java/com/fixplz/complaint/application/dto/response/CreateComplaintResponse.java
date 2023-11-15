@@ -7,8 +7,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 
 public class CreateComplaintResponse {
-    Long complaintNo;
-    String complaintContent;
+    private Long complaintNo;
+    private String complaintContent;
 
     public CreateComplaintResponse(Long complaintNo, String complaintContent) {
         this.complaintNo = complaintNo;

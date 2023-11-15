@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UpdateProcessingStatusResponse {
-    Long complaintNo;
-    String processingStatusText;
-    int processingStatusNum;
+    private Long complaintNo;
+    private String processingStatusText;
+    private int processingStatusNum;
 }

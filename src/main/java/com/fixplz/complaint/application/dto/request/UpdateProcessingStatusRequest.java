@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor()
 public class UpdateProcessingStatusRequest {
 
-    int processingStatusInt;
-    Long complaintNo;
+    private int processingStatusInt;
+    private Long complaintNo;
 
 }

@@ -23,7 +23,8 @@ class ComplaintServiceTests {
     @Autowired
     private ComplaintRepository complaintRepository;
 
-    private Complaint complaint;
+    private Complaint complaint1;
+    private Complaint complaint2;
 
     @BeforeEach
     void setUp() {
@@ -35,7 +36,7 @@ class ComplaintServiceTests {
         FacilityNoVO facilityNoVO = new FacilityNoVO(1L);
         ProcessingStatus processingStatus = ProcessingStatus.fromInt(0);
 
-        complaint = complaintRepository.save(new Complaint.Builder()
+        complaint1 = complaintRepository.save(new Complaint.Builder()
                 .complaintContent(complaintContent)
                 .processingStatus(processingStatus)
                 .facilityNoVO(facilityNoVO)
@@ -43,7 +44,7 @@ class ComplaintServiceTests {
                 .phoneNumber(phoneNumber)
                 .build());
 
-        complaintRepository.saveAndFlush(complaint);
+        complaintRepository.saveAndFlush(complaint1);
     }
 
     @AfterEach
@@ -98,4 +99,19 @@ class ComplaintServiceTests {
         Assertions.assertEquals(processingStatus, response.getProcessingStatusNum());
     }
 
+    @Test
+    @Transactional
+    @DisplayName("민원 전체 조회 : success")
+    void getComplintList() {
+
+        // given
+        String complaintContent = "민원 내용";
+        String phoneNumber = "01012345678";
+        int filterCategory = 1;
+        Long facilityNo = 1L;
+        // 이미지 추가
+
+        complaintRepository.save(new Complaint.Builder().complaintContent(complaintContent).phoneNumber(phoneNumber))
+
+    }
 }

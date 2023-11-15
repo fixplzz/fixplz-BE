@@ -9,9 +9,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class CreateComplaintRequest {
 
-    String complaintContent;
-    int filterCategory;
-    String phoneNumber;
-    Long facilityNo;
+    private String complaintContent;
+    private int filterCategory;
+    private String phoneNumber;
+    private Long facilityNo;
 
 }
