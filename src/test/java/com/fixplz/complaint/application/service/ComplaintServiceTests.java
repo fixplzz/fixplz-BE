@@ -45,6 +45,16 @@ class ComplaintServiceTests {
                 .build());
 
         complaintRepository.saveAndFlush(complaint1);
+
+        complaint2 = complaintRepository.save(new Complaint.Builder()
+                .complaintContent(complaintContent)
+                .processingStatus(processingStatus)
+                .facilityNoVO(facilityNoVO)
+                .filterCategory(FilterCategory.fromInt(filterCategory))
+                .phoneNumber(phoneNumber)
+                .build());
+
+        complaintRepository.saveAndFlush(complaint2);
     }
 
     @AfterEach
@@ -102,16 +112,13 @@ class ComplaintServiceTests {
     @Test
     @Transactional
     @DisplayName("민원 전체 조회 : success")
-    void getComplintList() {
+    void getComplaintList() {
 
         // given
-        String complaintContent = "민원 내용";
-        String phoneNumber = "01012345678";
-        int filterCategory = 1;
-        Long facilityNo = 1L;
-        // 이미지 추가
 
-        complaintRepository.save(new Complaint.Builder().complaintContent(complaintContent).phoneNumber(phoneNumber))
+        // when
+
+        // then
 
     }
 }

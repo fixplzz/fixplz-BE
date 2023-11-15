@@ -18,6 +18,7 @@ public class ComplaintService {
 
     private final ComplaintRepository complaintRepository;
 
+    // 민원 생성
     public CreateComplaintResponse createComplaint(CreateComplaintRequest request) {
 
         FilterCategory filterCategory = FilterCategory.fromInt(request.getFilterCategory());
@@ -44,7 +45,7 @@ public class ComplaintService {
         return response;
     }
 
-
+    // 민원 업데이트 : 처리 상태
     public UpdateProcessingStatusResponse updateProcessingStatus(UpdateProcessingStatusRequest request) {
 
         Complaint findComplaint = complaintRepository.findById(request.getComplaintNo())
@@ -60,4 +61,9 @@ public class ComplaintService {
 
         return response;
     }
+
+    // 민원 전체 조회
+
+    // 민원 상세 조회
+
 }
