@@ -1,14 +1,14 @@
 package com.fixplz.complaint.application.service;
 
 import com.fixplz.complaint.application.dto.request.CreateComplaintRequest;
+import com.fixplz.complaint.application.dto.request.UpdateProcessingStatusRequest;
 import com.fixplz.complaint.application.dto.response.CreateComplaintResponse;
+import com.fixplz.complaint.application.dto.response.UpdateProcessingStatusResponse;
 import com.fixplz.complaint.domain.aggregate.entity.Complaint;
 import com.fixplz.complaint.domain.aggregate.vo.FacilityNoVO;
 import com.fixplz.complaint.domain.aggregate.vo.FilterCategory;
-import com.fixplz.complaint.domain.aggregate.vo.FilterCategoryConverter;
 import com.fixplz.complaint.domain.aggregate.vo.ProcessingStatus;
 import com.fixplz.complaint.domain.repository.ComplaintRepository;
-import com.fixplz.facility.domain.aggregate.entity.Facility;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -20,7 +20,8 @@ public class ComplaintService {
 
     public CreateComplaintResponse createComplaint(CreateComplaintRequest request) {
 
-        FilterCategory filterCategory = FilterCategory.ofCode(String.valueOf(request.getFilterCategory()));
+        FilterCategory filterCategory = FilterCategory.fromInt(request.getFilterCategory());
+
         FacilityNoVO facilityNoVO = new FacilityNoVO(request.getFacilityNo());
 
         // 이미지 처리?
@@ -39,6 +40,23 @@ public class ComplaintService {
 
 
         // 알림톡 보내기
+
+        return response;
+    }
+
+
+    public UpdateProcessingStatusResponse updateProcessingStatus(UpdateProcessingStatusRequest request) {
+
+        Complaint findComplaint = complaintRepository.findById(request.getComplaintNo())
+                .orElseThrow(() -> new IllegalArgumentException("일치하는 민원이 존재하지않습니다"));
+
+        ProcessingStatus processingStatus = ProcessingStatus.fromInt(request.getProcessingStatusInt());
+
+        findComplaint.updateProcessingStatus(processingStatus);
+
+        UpdateProcessingStatusResponse response = new UpdateProcessingStatusResponse(findComplaint.getComplaintNo(),
+                                                                                     findComplaint.getProcessingStatus().getText(),
+                                                                                     findComplaint.getProcessingStatus().ordinal());
 
         return response;
     }

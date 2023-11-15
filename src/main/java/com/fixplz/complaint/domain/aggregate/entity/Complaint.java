@@ -25,10 +25,10 @@ public class Complaint {
     @Column
     private String complaintImage;
 
-    @Convert(converter = ProcessingStatusConverter.class)
+    @Enumerated(EnumType.ORDINAL)
     private ProcessingStatus processingStatus;
 
-    @Convert(converter = FilterCategoryConverter.class)
+    @Enumerated(EnumType.ORDINAL)
     private FilterCategory filterCategory;
 
     @Embedded
@@ -96,6 +96,12 @@ public class Complaint {
         public Complaint build() {
             return new Complaint(this);
         }
+    }
+
+    public ProcessingStatus updateProcessingStatus(ProcessingStatus processingStatus) {
+        this.processingStatus = processingStatus;
+
+        return this.getProcessingStatus();
     }
 
 
