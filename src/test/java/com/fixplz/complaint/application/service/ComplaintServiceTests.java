@@ -3,6 +3,8 @@ package com.fixplz.complaint.application.service;
 import com.fixplz.complaint.application.dto.request.CreateComplaintRequest;
 import com.fixplz.complaint.application.dto.request.UpdateProcessingStatusRequest;
 import com.fixplz.complaint.application.dto.response.CreateComplaintResponse;
+import com.fixplz.complaint.application.dto.response.GetComplaintListResponse;
+import com.fixplz.complaint.application.dto.response.GetComplaintResponse;
 import com.fixplz.complaint.application.dto.response.UpdateProcessingStatusResponse;
 import com.fixplz.complaint.domain.aggregate.entity.Complaint;
 import com.fixplz.complaint.domain.aggregate.vo.FacilityNoVO;
@@ -12,7 +14,13 @@ import com.fixplz.complaint.domain.repository.ComplaintRepository;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @SpringBootTest
 class ComplaintServiceTests {
@@ -85,7 +93,7 @@ class ComplaintServiceTests {
 
         // then
         Assertions.assertEquals(beforeCnt + 1, afterCnt);
-        Assertions.assertEquals(complaintContent,response.getComplaintContent());
+        Assertions.assertEquals(complaintContent, response.getComplaintContent());
         Assertions.assertEquals(FilterCategory.fromInt(1).getText(), savedComplaint.getFilterCategory().getText());
 
     }
@@ -115,10 +123,28 @@ class ComplaintServiceTests {
     void getComplaintList() {
 
         // given
+        Pageable pageable = PageRequest.of(0, 10, Sort.Direction.DESC, "complaintNo");
+        long entityCnt = complaintRepository.count();
 
         // when
+        Page<GetComplaintListResponse> response = complaintService.getComplaintList(pageable);
 
         // then
+        Assertions.assertEquals(entityCnt, response.getTotalElements());
+    }
+
+    @Test
+    @Transactional
+    @DisplayName("민원 상세 조회 : success")
+    void getComplaint() {
+
+        // given
+        Long complaintNo = 1L;
+
+        // when
+        GetComplaintResponse response = complaintService.getComplaint(complaintNo);
+
+        //then
 
     }
 }

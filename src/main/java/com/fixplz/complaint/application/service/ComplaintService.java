@@ -3,6 +3,8 @@ package com.fixplz.complaint.application.service;
 import com.fixplz.complaint.application.dto.request.CreateComplaintRequest;
 import com.fixplz.complaint.application.dto.request.UpdateProcessingStatusRequest;
 import com.fixplz.complaint.application.dto.response.CreateComplaintResponse;
+import com.fixplz.complaint.application.dto.response.GetComplaintListResponse;
+import com.fixplz.complaint.application.dto.response.GetComplaintResponse;
 import com.fixplz.complaint.application.dto.response.UpdateProcessingStatusResponse;
 import com.fixplz.complaint.domain.aggregate.entity.Complaint;
 import com.fixplz.complaint.domain.aggregate.vo.FacilityNoVO;
@@ -10,7 +12,11 @@ import com.fixplz.complaint.domain.aggregate.vo.FilterCategory;
 import com.fixplz.complaint.domain.aggregate.vo.ProcessingStatus;
 import com.fixplz.complaint.domain.repository.ComplaintRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -62,7 +68,21 @@ public class ComplaintService {
         return response;
     }
 
-    // 민원 전체 조회
+    // 민원 전체 조회 : 페이징
+    public Page<GetComplaintListResponse> getComplaintList(Pageable pageable) {
+
+        Page<GetComplaintListResponse> response = complaintRepository.findAll(pageable).map(GetComplaintListResponse::toDto);
+
+        return response;
+    }
+
+    public GetComplaintResponse getComplaint(Long complaintNo) {
+
+        Complaint findComplaint = complaintRepository.findById(complaintNo)
+                .orElseThrow(() -> new IllegalArgumentException("일치하는 민원이 존재하지않습니다."));
+
+        return null;
+    }
 
     // 민원 상세 조회
 
