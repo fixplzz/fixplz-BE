@@ -20,8 +20,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-
 @SpringBootTest
 class ComplaintServiceTests {
 
@@ -105,7 +103,7 @@ class ComplaintServiceTests {
 
         // given
         int processingStatus = 1;
-        Long complaintNo = 1L;
+        Long complaintNo = complaint1.getComplaintNo();
         UpdateProcessingStatusRequest request = new UpdateProcessingStatusRequest(processingStatus, complaintNo);
 
         // when
@@ -145,6 +143,8 @@ class ComplaintServiceTests {
         GetComplaintResponse response = complaintService.getComplaint(complaintNo);
 
         //then
-
+        Assertions.assertEquals(complaint1.getComplaintContent(), response.getComplaintContext());
+        Assertions.assertEquals(complaint1.getProcessingStatus().getText(), response.getProcessingStatus());
+        Assertions.assertEquals(complaint1.getFilterCategory().getText(), response.getFilterCategory());
     }
 }
