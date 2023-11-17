@@ -76,14 +76,13 @@ public class ComplaintService {
         return response;
     }
 
+    // 민원 상세 조회
     public GetComplaintResponse getComplaint(Long complaintNo) {
 
-        Complaint findComplaint = complaintRepository.findById(complaintNo)
+        GetComplaintResponse response = complaintRepository.findById(complaintNo).map(GetComplaintResponse::toDto)
                 .orElseThrow(() -> new IllegalArgumentException("일치하는 민원이 존재하지않습니다."));
 
-        return null;
+        return response;
     }
-
-    // 민원 상세 조회
 
 }

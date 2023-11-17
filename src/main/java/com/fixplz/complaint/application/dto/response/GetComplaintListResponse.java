@@ -7,12 +7,12 @@ import lombok.*;
 
 @Getter
 @AllArgsConstructor
-@NoArgsConstructor(access = AccessLevel.PROTECTED, force = true)
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class GetComplaintListResponse {
     private Long complaintNo;
     private String complaintContext;
     private String complaintImage;
-    private ProcessingStatus processingStatus;
+    private String processingStatus;
     private Long facilityNo;
 
     public static GetComplaintListResponse toDto(Complaint complaint) {
@@ -21,7 +21,7 @@ public class GetComplaintListResponse {
         response.complaintNo = complaint.getComplaintNo();
         response.complaintContext = complaint.getComplaintContent();
         response.complaintImage = complaint.getComplaintImage();
-        response.processingStatus = complaint.getProcessingStatus();
+        response.processingStatus = complaint.getProcessingStatus().getText();
         response.facilityNo = complaint.getFacilityNoVO().getFacilityNo();
 
         return response;

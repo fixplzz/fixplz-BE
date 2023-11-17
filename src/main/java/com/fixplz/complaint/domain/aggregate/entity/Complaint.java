@@ -98,10 +98,8 @@ public class Complaint {
         }
     }
 
-    public ProcessingStatus updateProcessingStatus(ProcessingStatus processingStatus) {
+    public void updateProcessingStatus(ProcessingStatus processingStatus) {
         this.processingStatus = processingStatus;
-
-        return this.getProcessingStatus();
     }
 
 
