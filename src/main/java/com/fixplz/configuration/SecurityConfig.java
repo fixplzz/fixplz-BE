@@ -1,8 +1,8 @@
 package com.fixplz.configuration;
 
-import com.fixplz.auth.JwtTokenProvider;
 import com.fixplz.auth.Jwt401Handler;
 import com.fixplz.auth.Jwt403Handler;
+import com.fixplz.auth.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -56,8 +56,8 @@ public class SecurityConfig {
 
                 .and()
                 .authorizeHttpRequests()
-                .requestMatchers(API_WHITE_LIST).permitAll()
-                .anyRequest().authenticated()
+//                .requestMatchers(API_WHITE_LIST).permitAll()
+//                .anyRequest().authenticated()
 
                 .and()
                 .apply(new JwtSecurityConfig(jwtTokenProvider));

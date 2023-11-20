@@ -15,7 +15,7 @@ import java.util.Collections;
 @Getter
 @Table(name = "TBL_ADMIN")
 @NoArgsConstructor(access = AccessLevel.PROTECTED, force = true)
-public class Admin implements UserDetails{
+public class Admin implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
