@@ -1,6 +1,5 @@
 package com.fixplz.facility.domain.aggregate.entity.enumtype;
 
-import jakarta.persistence.Enumerated;
 import lombok.Getter;
 
 @Getter

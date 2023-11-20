@@ -51,7 +51,6 @@ public class Facility {
         this.departmentCallNumber = builder.departmentCallNumber;
         this.coordinateVO = builder.coordinateVO;
         this.facilityCategory = builder.facilityCategory;
-
     }
 
     public static class Builder {
