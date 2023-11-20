@@ -25,8 +25,9 @@ public class SecurityConfig {
     private final Jwt403Handler jwt403Handler;
 
     private final String[] API_WHITE_LIST = {
-            "/admin/regist",
-            "/admin/login"
+//            "/admin/regist",
+//            "/admin/login"
+            "/**"
     };
 
     @Bean
@@ -56,8 +57,8 @@ public class SecurityConfig {
 
                 .and()
                 .authorizeHttpRequests()
-//                .requestMatchers(API_WHITE_LIST).permitAll()
-//                .anyRequest().authenticated()
+                .requestMatchers(API_WHITE_LIST).permitAll()
+                .anyRequest().authenticated()
 
                 .and()
                 .apply(new JwtSecurityConfig(jwtTokenProvider));
