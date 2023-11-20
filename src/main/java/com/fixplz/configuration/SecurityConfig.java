@@ -1,8 +1,8 @@
 package com.fixplz.configuration;
 
-import com.fixplz.auth.JwtTokenProvider;
 import com.fixplz.auth.Jwt401Handler;
 import com.fixplz.auth.Jwt403Handler;
+import com.fixplz.auth.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -25,8 +25,9 @@ public class SecurityConfig {
     private final Jwt403Handler jwt403Handler;
 
     private final String[] API_WHITE_LIST = {
-            "/admin/regist",
-            "/admin/login"
+//            "/admin/regist",
+//            "/admin/login"
+            "/**"
     };
 
     @Bean
