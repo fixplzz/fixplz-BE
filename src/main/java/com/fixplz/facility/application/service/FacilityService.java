@@ -7,22 +7,24 @@ import com.fixplz.facility.domain.aggregate.enumtype.Department;
 import com.fixplz.facility.domain.aggregate.enumtype.FacilityCategory;
 import com.fixplz.facility.domain.aggregate.vo.CoordinateVO;
 import com.fixplz.facility.domain.repository.FacilityRepository;
-import com.fixplz.facility.domain.service.FacilityDomainService;
 import com.fixplz.facility.domain.service.QRApiDomainService;
 import com.google.zxing.WriterException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.io.IOException;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class FacilityService {
 
-    private final FacilityDomainService facilityDomainService;
     private final FacilityRepository facilityRepository;
     private final QRApiDomainService qrApiDomainService;
 
-    public FacilityResponse registFacility(FacilityRequest request) {
+    public FacilityResponse registFacility(FacilityRequest request) throws IOException {
         try {
 
             FacilityCategory facilityCategory = FacilityCategory.fromCategoryName(
@@ -48,7 +50,9 @@ public class FacilityService {
             Facility result = facilityRepository.save(facility);
 
             byte[] qrByte = qrApiDomainService.createQRcode(result.getFacilityNo());
-            String qrUrl = qrApiDomainService.uploadQRcodeToS3(qrByte);
+            String qrImageUrl = qrApiDomainService.uploadQRcodeToS3(qrByte, result.getFacilityName());
+
+            result.updateQRUrl(qrImageUrl);
 
             return FacilityResponse.of(
                     result.getFacilityNo(),
@@ -58,7 +62,7 @@ public class FacilityService {
                     result.getFacilityAddress(),
                     result.getDepartment().getDepartmentName(),
                     result.getDepartment().getDepartmentNumber(),
-                    qrUrl,
+                    result.getFacilityQRUrl(),
                     result.getCoordinateVO().getLatitude(),
                     result.getCoordinateVO().getLongitude()
             );
