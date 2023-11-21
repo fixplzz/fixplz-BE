@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.io.IOException;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("api/v1/facility")
@@ -23,10 +25,11 @@ public class FacilityController {
 
     @PostMapping
     public ResponseEntity<ApiResponse> registFacility(@RequestBody @Valid FacilityRequest request,
-                                                      BindingResult bindingResult) {
+                                                      BindingResult bindingResult) throws IOException {
         if (bindingResult.hasErrors()) {
             return ResponseEntity.badRequest().body(ApiResponse.error(bindingResult.getFieldError().getDefaultMessage()));
         }
+
         FacilityResponse response = facilityService.registFacility(request);
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(ApiResponse.success("시설물 등록에 성공하였습니다.", response));

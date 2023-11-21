@@ -10,8 +10,8 @@ import lombok.NoArgsConstructor;
 
 @Entity
 @Getter
-@Table(name = "TBL_FACILITY")
 @NoArgsConstructor(access = AccessLevel.PROTECTED, force = true)
+@Table(name = "TBL_FACILITY")
 public class Facility {
 
     @Id
@@ -48,6 +48,21 @@ public class Facility {
         this.facilityAddress = builder.facilityAddress;
         this.department = builder.department;
         this.coordinateVO = builder.coordinateVO;
+    }
+
+    public void update(FacilityCategory facilityCategory, String facilityName, String facilityQRUrl,
+                       String administrativeDong, String facilityAddress, Department department, CoordinateVO coordinateVO) {
+        this.facilityCategory = facilityCategory;
+        this.facilityName = facilityName;
+        this.facilityQRUrl = facilityQRUrl;
+        this.administrativeDong = administrativeDong;
+        this.facilityAddress = facilityAddress;
+        this.department = department;
+        this.coordinateVO = coordinateVO;
+    }
+
+    public void updateQRUrl(String facilityQRUrl) {
+        this.facilityQRUrl = facilityQRUrl;
     }
 
     public static class Builder {
