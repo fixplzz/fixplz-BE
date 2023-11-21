@@ -1,30 +1,29 @@
 package com.fixplz.complaint.application.dto.response;
 
 import com.fixplz.complaint.domain.aggregate.entity.Complaint;
-import com.fixplz.complaint.domain.aggregate.vo.ProcessingStatus;
-import lombok.*;
 
+import java.text.SimpleDateFormat;
 
-@Getter
-@AllArgsConstructor
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class GetComplaintListResponse {
-    private Long complaintNo;
-    private String complaintContext;
-    private String complaintImage;
-    private String processingStatus;
-    private Long facilityNo;
-
+public record GetComplaintListResponse (
+        Long complaintNo,
+        String complaintContext,
+        String complaintImage,
+        String date,
+        String processingStatus,
+        Long facilityNo
+){
     public static GetComplaintListResponse toDto(Complaint complaint) {
-        GetComplaintListResponse response = new GetComplaintListResponse();
 
-        response.complaintNo = complaint.getComplaintNo();
-        response.complaintContext = complaint.getComplaintContent();
-        response.complaintImage = complaint.getComplaintImage();
-        response.processingStatus = complaint.getProcessingStatus().getText();
-        response.facilityNo = complaint.getFacilityNoVO().getFacilityNo();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy년 MM월 dd일 a hh시 mm분 ss초");
 
-        return response;
+        return new GetComplaintListResponse(
+                complaint.getComplaintNo(),
+                complaint.getComplaintContent(),
+                complaint.getComplaintImage(),
+                dateFormat.format(complaint.getDate()),
+                complaint.getProcessingStatus().getText(),
+                complaint.getFacilityNoVO().getFacilityNo()
+        );
     }
 
 }
