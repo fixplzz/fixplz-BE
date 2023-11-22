@@ -1,5 +1,6 @@
 package com.fixplz.common.handler;
 
+import com.fixplz.common.handler.exception.NoSuchDataException;
 import com.fixplz.common.handler.exception.NotFoundException;
 import com.fixplz.common.response.ApiResponse;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -35,9 +36,15 @@ public class ExceptionResponseHandler {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ApiResponse.error(e.getMessage()));
     }
 
+    /* 무결성 제약 조건 위반 - 중복된 값 입력, 외래 키 제약 조건 위반 */
     @ExceptionHandler(DataIntegrityViolationException.class)
     public ResponseEntity<ApiResponse> handlerDataIntegrityViolationException(DataIntegrityViolationException e) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ApiResponse.error(e.getMessage()));
+    }
+
+    @ExceptionHandler(NoSuchDataException.class)
+    public ResponseEntity<ApiResponse> handlerNoSuchDataException(NoSuchDataException e) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ApiResponse.error(e.getMessage()));
     }
 
     /* 업로드 파일 초과 시 에러 핸들러 */
