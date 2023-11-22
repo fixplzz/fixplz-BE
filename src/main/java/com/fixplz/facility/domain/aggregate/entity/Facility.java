@@ -1,7 +1,5 @@
 package com.fixplz.facility.domain.aggregate.entity;
 
-import com.fixplz.facility.domain.aggregate.enumtype.Department;
-import com.fixplz.facility.domain.aggregate.enumtype.FacilityCategory;
 import com.fixplz.facility.domain.aggregate.vo.CoordinateVO;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
@@ -18,8 +16,11 @@ public class Facility {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long facilityNo;
 
-    @Enumerated(EnumType.STRING)
-    private FacilityCategory facilityCategory;
+//    @Enumerated(EnumType.STRING)
+//    private FacilityCategory facilityCategory;
+
+    @Column
+    private String facilityCategory;
 
     @Column
     private String facilityName;
@@ -33,8 +34,13 @@ public class Facility {
     @Column
     private String facilityAddress;
 
-    @Enumerated(EnumType.STRING)
-    private Department department;
+    //    @Enumerated(EnumType.STRING)
+//    private Department department;
+    @Column
+    private String departmentName;
+
+    @Column
+    private String departmentNumber;
 
     @Embedded
     private CoordinateVO coordinateVO;
@@ -46,18 +52,20 @@ public class Facility {
         this.facilityQRUrl = builder.facilityQRUrl;
         this.administrativeDong = builder.administrativeDong;
         this.facilityAddress = builder.facilityAddress;
-        this.department = builder.department;
+        this.departmentName = builder.departmentName;
+        this.departmentNumber = builder.departmentNumber;
         this.coordinateVO = builder.coordinateVO;
     }
 
-    public void update(FacilityCategory facilityCategory, String facilityName, String facilityQRUrl,
-                       String administrativeDong, String facilityAddress, Department department, CoordinateVO coordinateVO) {
+    public void update(String facilityCategory, String facilityName, String facilityQRUrl,
+                       String administrativeDong, String facilityAddress, String departmentName, String departmentNumber, CoordinateVO coordinateVO) {
         this.facilityCategory = facilityCategory;
         this.facilityName = facilityName;
         this.facilityQRUrl = facilityQRUrl;
         this.administrativeDong = administrativeDong;
         this.facilityAddress = facilityAddress;
-        this.department = department;
+        this.departmentName = departmentName;
+        this.departmentNumber = departmentNumber;
         this.coordinateVO = coordinateVO;
     }
 
@@ -67,12 +75,13 @@ public class Facility {
 
     public static class Builder {
         private Long facilityNo;
-        private FacilityCategory facilityCategory;
+        private String facilityCategory;
         private String facilityName;
         private String facilityQRUrl;
         private String administrativeDong;
         private String facilityAddress;
-        private Department department;
+        private String departmentName;
+        private String departmentNumber;
         private CoordinateVO coordinateVO;
 
         public static Builder builder() {
@@ -84,7 +93,7 @@ public class Facility {
             return this;
         }
 
-        public Builder facilityCategory(FacilityCategory facilityCategory) {
+        public Builder facilityCategory(String facilityCategory) {
             this.facilityCategory = facilityCategory;
             return this;
         }
@@ -109,8 +118,13 @@ public class Facility {
             return this;
         }
 
-        public Builder department(Department department) {
-            this.department = department;
+        public Builder departmentName(String departmentName) {
+            this.departmentName = departmentName;
+            return this;
+        }
+
+        public Builder departmentNumber(String departmentNumber) {
+            this.departmentNumber = departmentNumber;
             return this;
         }
 
