@@ -1,6 +1,7 @@
 package com.fixplz.facility.infra.service;
 
 import com.fixplz.common.annotation.InfraService;
+import com.fixplz.common.utils.S3Storage;
 import com.fixplz.facility.domain.service.QRApiDomainService;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.MultiFormatWriter;
@@ -14,6 +15,8 @@ import java.io.ByteArrayOutputStream;
 @InfraService
 @RequiredArgsConstructor
 public class QRApiInfraService implements QRApiDomainService {
+
+    private final S3Storage s3Storage;
 
     @Override
     public byte[] createQRcode(Long facilityNo) throws WriterException {
@@ -32,12 +35,13 @@ public class QRApiInfraService implements QRApiDomainService {
             MatrixToImageWriter.writeToStream(encode, "PNG", out); // QR 코드 이미지를 바이트 배열 형태로 저장, flush 작업 자동 실행해줌
             return out.toByteArray();   // 바이트 형태로 QR code Image 출력
         } catch (Exception e) {
-            throw new RuntimeException("QR code 생성에 실패하였습니다.");
+            throw new RuntimeException("QR code 생성에 실패하였습니다. 잠시 후 다시 시도해주세요.");
         }
     }
 
     @Override
-    public String uploadQRcodeToS3(byte[] qrByte) {
-        return null;
+    public String uploadQRcodeToS3(byte[] qrByte, String facilityName) {
+        String dirName = "qr";
+        return s3Storage.uploadBytes(qrByte, dirName, facilityName);
     }
 }
