@@ -53,6 +53,13 @@ dependencies {
     // https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-starter-aws
     implementation 'io.awspring.cloud:spring-cloud-starter-aws:2.4.4'
 
+    //SMS
+    implementation(group: 'net.nurigo', name: 'javaSDK', version: '2.2')
+
+    //redis
+    implementation 'org.springframework.data:spring-data-redis:2.7.5'
+    implementation 'io.lettuce:lettuce-core:6.2.1.RELEASE'
+
 }
 
 tasks.named('test') {
