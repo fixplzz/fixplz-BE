@@ -21,7 +21,7 @@ public record FacilityRequest(
 
         @NotBlank(message = "담당 부서의 번호를 기입해주세요.")
         String departmentNumber,
-
+        
         double latitude,
 
         double longitude

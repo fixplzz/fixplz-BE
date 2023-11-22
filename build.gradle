@@ -50,7 +50,6 @@ dependencies {
     implementation group: 'com.google.zxing', name: 'core', version: '3.5.0'
 
     // S3 upload
-    // https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-starter-aws
     implementation 'io.awspring.cloud:spring-cloud-starter-aws:2.4.4'
 
     //SMS
