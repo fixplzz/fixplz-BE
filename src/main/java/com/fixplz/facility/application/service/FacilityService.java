@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -79,4 +80,28 @@ public class FacilityService {
     }
 
 
+    public FacilityResponse updateFacility(Long facilityNo, FacilityRequest request) {
+        Facility facility = facilityRepository.findById(facilityNo)
+                .orElseThrow(() -> new NoSuchDataException("일치하는 시설물이 없습니다."));
+
+        facility.update(
+                request.facilityCategory(),
+                request.facilityName(),
+                request.administrativeDong(),
+                request.facilityAddress(),
+                request.departmentName(),
+                request.departmentNumber(),
+                new CoordinateVO(
+                        request.latitude(),
+                        request.longitude()
+                )
+        );
+
+        return FacilityResponse.of(facility);
+
+    }
+
+    public void deleteFacilities(List<Long> facilityNoList) {
+        facilityRepository.deleteAllById(facilityNoList);
+    }
 }

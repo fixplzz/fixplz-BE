@@ -1,6 +1,7 @@
 package com.fixplz.facility.application.controller;
 
 import com.fixplz.common.response.ApiResponse;
+import com.fixplz.facility.application.dto.request.FacilityDeleteRequest;
 import com.fixplz.facility.application.dto.request.FacilityRequest;
 import com.fixplz.facility.application.dto.response.FacilityResponse;
 import com.fixplz.facility.application.service.FacilityService;
@@ -47,6 +48,30 @@ public class FacilityController {
         FacilityResponse response = facilityService.registFacility(request);
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(ApiResponse.success("시설물 등록에 성공하였습니다.", response));
+    }
+
+    @PutMapping("{facilityNo}")
+    public ResponseEntity<ApiResponse> updateFacility(@PathVariable(name = "facilityNo") Long facilityNo,
+                                                      @RequestBody @Valid FacilityRequest request,
+                                                      BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return ResponseEntity.badRequest().body(ApiResponse.error(bindingResult.getFieldError().getDefaultMessage()));
+        }
+
+        FacilityResponse response = facilityService.updateFacility(facilityNo, request);
+        return ResponseEntity.ok().body(ApiResponse.success("시설물 수정에 성공하였습니다.", response));
+    }
+
+    @DeleteMapping("/delete")
+    public ResponseEntity<ApiResponse> deleteFacilities(@RequestBody @Valid FacilityDeleteRequest request,
+                                                        BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return ResponseEntity.badRequest().body(ApiResponse.error(bindingResult.getFieldError().getDefaultMessage()));
+        }
+
+        facilityService.deleteFacilities(request.facilityNoList());
+
+        return ResponseEntity.ok().body(ApiResponse.success("시설물 삭제에 성공하였습니다.", null));
     }
 
 }

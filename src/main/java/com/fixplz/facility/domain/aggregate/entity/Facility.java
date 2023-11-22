@@ -57,11 +57,10 @@ public class Facility {
         this.coordinateVO = builder.coordinateVO;
     }
 
-    public void update(String facilityCategory, String facilityName, String facilityQRUrl,
-                       String administrativeDong, String facilityAddress, String departmentName, String departmentNumber, CoordinateVO coordinateVO) {
+    public void update(String facilityCategory, String facilityName, String administrativeDong,
+                       String facilityAddress, String departmentName, String departmentNumber, CoordinateVO coordinateVO) {
         this.facilityCategory = facilityCategory;
         this.facilityName = facilityName;
-        this.facilityQRUrl = facilityQRUrl;
         this.administrativeDong = administrativeDong;
         this.facilityAddress = facilityAddress;
         this.departmentName = departmentName;
