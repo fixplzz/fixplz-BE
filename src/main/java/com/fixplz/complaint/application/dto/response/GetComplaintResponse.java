@@ -1,7 +1,6 @@
 package com.fixplz.complaint.application.dto.response;
 
 import com.fixplz.complaint.domain.aggregate.entity.Complaint;
-import com.fixplz.facility.domain.aggregate.enumtype.FacilityCategory;
 
 import java.text.SimpleDateFormat;
 

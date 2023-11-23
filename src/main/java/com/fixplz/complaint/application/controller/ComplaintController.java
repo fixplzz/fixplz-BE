@@ -14,6 +14,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/complaint")
@@ -23,7 +25,7 @@ public class ComplaintController {
     private final MessageService messageService;
 
     @PostMapping("")
-    public ResponseEntity<ApiResponse> createComplaint(@RequestBody CreateComplaintRequest request) {
+    public ResponseEntity<ApiResponse> createComplaint(@ModelAttribute CreateComplaintRequest request) throws IOException {
 
         CreateComplaintResponse response = complaintService.createComplaint(request);
 
