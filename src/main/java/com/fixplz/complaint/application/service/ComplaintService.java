@@ -9,13 +9,20 @@ import com.fixplz.complaint.domain.aggregate.vo.FilterCategory;
 import com.fixplz.complaint.domain.aggregate.vo.ProcessingStatus;
 import com.fixplz.complaint.domain.repository.ComplaintRepository;
 import com.fixplz.complaint.infra.service.ComplaintInfraService;
+import com.fixplz.facility.domain.aggregate.enumtype.FacilityCategory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 @RequiredArgsConstructor
@@ -46,7 +53,7 @@ public class ComplaintService {
         Complaint createdComplaint = complaintRepository.save(complaint);
 
         CreateComplaintResponse response = new CreateComplaintResponse(createdComplaint.getComplaintNo(),
-                                                                       createdComplaint.getComplaintContent());
+                createdComplaint.getComplaintContent());
 
 
         return response;
@@ -66,8 +73,8 @@ public class ComplaintService {
         complaintRepository.updateComplaint(findComplaint.getComplaintNo(), processingStatus);
 
         UpdateProcessingStatusResponse response = new UpdateProcessingStatusResponse(findComplaint.getComplaintNo(),
-                                                                                     findComplaint.getProcessingStatus().getText(),
-                                                                                     findComplaint.getProcessingStatus().ordinal());
+                findComplaint.getProcessingStatus().getText(),
+                findComplaint.getProcessingStatus().ordinal());
 
         return response;
     }
@@ -95,4 +102,18 @@ public class ComplaintService {
         return response;
     }
 
+    // 민원 처리 페이지 진입 시 : 시설물 & 필터 카테고리 조회
+    @Transactional(readOnly = true)
+    public GetComplaintPageInfo getComplaintPageInfoWithFacility(Long facilityNo) {
+
+        GetFacilityInfo facilityInfo = complaintInfraService.getFacilityInfo(facilityNo);
+        List<Map<Integer, String>> filterCategoryList = Stream.of(FilterCategory.values())
+                .map(filterCategory -> Map.of(filterCategory.ordinal(), filterCategory.getText()))
+                .toList();
+
+        GetComplaintPageInfo response = new GetComplaintPageInfo(facilityInfo, filterCategoryList);
+        System.out.println("response = " + response);
+
+        return response;
+    }
 }

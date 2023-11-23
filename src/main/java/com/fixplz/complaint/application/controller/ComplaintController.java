@@ -3,10 +3,7 @@ package com.fixplz.complaint.application.controller;
 import com.fixplz.common.response.ApiResponse;
 import com.fixplz.complaint.application.dto.request.CreateComplaintRequest;
 import com.fixplz.complaint.application.dto.request.UpdateProcessingStatusRequest;
-import com.fixplz.complaint.application.dto.response.CreateComplaintResponse;
-import com.fixplz.complaint.application.dto.response.GetComplaintListResponse;
-import com.fixplz.complaint.application.dto.response.GetComplaintResponse;
-import com.fixplz.complaint.application.dto.response.UpdateProcessingStatusResponse;
+import com.fixplz.complaint.application.dto.response.*;
 import com.fixplz.complaint.application.service.ComplaintService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -16,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/v1/complaint")
 public class ComplaintController {
 
     private final ComplaintService complaintService;
@@ -37,7 +33,7 @@ public class ComplaintController {
         return ResponseEntity.ok().body(ApiResponse.success("민원 전체 조회 성공", response));
     }
 
-    @PutMapping("/{complaintNo}")
+    @PutMapping("/api/v1/complaint/{complaintNo}")
     public ResponseEntity<ApiResponse> updateProcessingStatus(@PathVariable("complaintNo") Long complaintNO, @RequestBody UpdateProcessingStatusRequest request) {
 
         UpdateProcessingStatusResponse response = complaintService.updateProcessingStatus(request, complaintNO);
@@ -45,12 +41,20 @@ public class ComplaintController {
         return ResponseEntity.ok().body(ApiResponse.success("민원 진행 상황 업데이트 성공", response));
     }
 
-    @GetMapping("/{complaintNo}")
+    @GetMapping("/api/v1/complaint/{complaintNo}")
     public ResponseEntity<ApiResponse> getComplaint(@PathVariable("complaintNo") Long complaintNo) {
 
         GetComplaintResponse response = complaintService.getComplaint(complaintNo);
 
         return ResponseEntity.ok().body(ApiResponse.success("민원 상세조회 성공", response));
+    }
+
+    @GetMapping("")
+    public ResponseEntity<ApiResponse> getFacilityInComplaint(@RequestParam("facilityNo") Long facilityNo) {
+
+        GetComplaintPageInfo response = complaintService.getComplaintPageInfoWithFacility(facilityNo);
+
+        return ResponseEntity.ok().body(ApiResponse.success("민원 페이지 조회 성공", response));
     }
 
 }
