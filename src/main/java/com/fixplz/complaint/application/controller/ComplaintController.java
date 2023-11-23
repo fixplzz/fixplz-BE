@@ -13,15 +13,16 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
+@RequestMapping("/api/v1/complaint")
 public class ComplaintController {
 
     private final ComplaintService complaintService;
+    private final MessageService messageService;
 
-    @PostMapping
+    @PostMapping("")
     public ResponseEntity<ApiResponse> createComplaint(@RequestBody CreateComplaintRequest request) {
 
         CreateComplaintResponse response = complaintService.createComplaint(request);
@@ -29,7 +30,7 @@ public class ComplaintController {
         return ResponseEntity.ok().body(ApiResponse.success("민원 등록 성공", response));
     }
 
-    @GetMapping
+    @GetMapping("")
     public ResponseEntity<ApiResponse> getComplaintList(Pageable pageable) {
 
         Page<GetComplaintListResponse> response = complaintService.getComplaintList(pageable);
@@ -37,7 +38,7 @@ public class ComplaintController {
         return ResponseEntity.ok().body(ApiResponse.success("민원 전체 조회 성공", response));
     }
 
-    @PutMapping("/api/v1/complaint/{complaintNo}")
+    @PutMapping("/{complaintNo}")
     public ResponseEntity<ApiResponse> updateProcessingStatus(@PathVariable("complaintNo") Long complaintNO, @RequestBody UpdateProcessingStatusRequest request) {
 
         UpdateProcessingStatusResponse response = complaintService.updateProcessingStatus(request, complaintNO);
@@ -45,7 +46,7 @@ public class ComplaintController {
         return ResponseEntity.ok().body(ApiResponse.success("민원 진행 상황 업데이트 성공", response));
     }
 
-    @GetMapping("/api/v1/complaint/{complaintNo}")
+    @GetMapping("/{complaintNo}")
     public ResponseEntity<ApiResponse> getComplaint(@PathVariable("complaintNo") Long complaintNo) {
 
         GetComplaintResponse response = complaintService.getComplaint(complaintNo);
@@ -53,15 +54,13 @@ public class ComplaintController {
         return ResponseEntity.ok().body(ApiResponse.success("민원 상세조회 성공", response));
     }
 
-    @GetMapping("")
+    @GetMapping("/page")
     public ResponseEntity<ApiResponse> getFacilityInComplaint(@RequestParam("facilityNo") Long facilityNo) {
 
         GetComplaintPageInfo response = complaintService.getComplaintPageInfoWithFacility(facilityNo);
 
         return ResponseEntity.ok().body(ApiResponse.success("민원 페이지 조회 성공", response));
     }
-
-    private final MessageService messageService;
 
     //요청된 전화번호로 인증번호 전송
     //임시로 String 을 리턴합니다. 문자 전송을 이용하면 비용이 발생하기 때문에 임의로 코드를 리턴하여 PostMan 을 통해 발급된 코드를 확인할 수 있도록 해놨습니다.
