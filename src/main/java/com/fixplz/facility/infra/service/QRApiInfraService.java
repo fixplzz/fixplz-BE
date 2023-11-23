@@ -24,7 +24,7 @@ public class QRApiInfraService implements QRApiDomainService {
         // QR 정보
         int width = 250;
         int height = 250;
-        String url = "http://localhost:3000?facilityNo=" + facilityNo;
+        String url = "http://localhost:3000/api/v1/complaint/page?facilityNo=" + facilityNo;
 
         //  QR Code -BitMatrix: QR code 정보 생성
         BitMatrix encode = new MultiFormatWriter()
