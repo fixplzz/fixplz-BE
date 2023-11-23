@@ -1,10 +1,14 @@
 package com.fixplz.complaint.domain.aggregate.entity;
 
-import com.fixplz.complaint.domain.aggregate.vo.*;
+import com.fixplz.complaint.domain.aggregate.vo.FacilityNoVO;
+import com.fixplz.complaint.domain.aggregate.vo.FilterCategory;
+import com.fixplz.complaint.domain.aggregate.vo.ProcessingStatus;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
+import java.util.Date;
 
 @Entity
 @Getter
@@ -25,10 +29,13 @@ public class Complaint {
     @Column
     private String complaintImage;
 
-    @Convert(converter = ProcessingStatusConverter.class)
+    @Column
+    private Date date;
+
+    @Enumerated(EnumType.ORDINAL)
     private ProcessingStatus processingStatus;
 
-    @Convert(converter = FilterCategoryConverter.class)
+    @Enumerated(EnumType.ORDINAL)
     private FilterCategory filterCategory;
 
     @Embedded
@@ -40,6 +47,7 @@ public class Complaint {
         this.complaintContent = builder.complaintContent;
         this.phoneNumber = builder.phoneNumber;
         this.complaintImage = builder.complaintImage;
+        this.date = builder.date;
         this.processingStatus = builder.processingStatus;
         this.filterCategory = builder.filterCategory;
         this.facilityNoVO = builder.facilityNoVO;
@@ -50,6 +58,7 @@ public class Complaint {
         private String complaintContent;
         private String phoneNumber;
         private String complaintImage;
+        private Date date;
         private ProcessingStatus processingStatus;
         private FilterCategory filterCategory;
         private FacilityNoVO facilityNoVO;
@@ -78,6 +87,11 @@ public class Complaint {
             return this;
         }
 
+        public Builder date(Date date) {
+            this.date = date;
+            return this;
+        }
+
         public Builder processingStatus(ProcessingStatus processingStatus) {
             this.processingStatus = processingStatus;
             return this;
@@ -96,6 +110,10 @@ public class Complaint {
         public Complaint build() {
             return new Complaint(this);
         }
+    }
+
+    public void updateProcessingStatus(ProcessingStatus processingStatus) {
+        this.processingStatus = processingStatus;
     }
 
 
