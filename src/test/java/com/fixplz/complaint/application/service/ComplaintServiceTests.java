@@ -11,6 +11,9 @@ import com.fixplz.complaint.domain.aggregate.vo.FacilityNoVO;
 import com.fixplz.complaint.domain.aggregate.vo.FilterCategory;
 import com.fixplz.complaint.domain.aggregate.vo.ProcessingStatus;
 import com.fixplz.complaint.domain.repository.ComplaintRepository;
+import com.fixplz.facility.domain.aggregate.entity.Facility;
+import com.fixplz.facility.domain.aggregate.vo.CoordinateVO;
+import com.fixplz.facility.domain.repository.FacilityRepository;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -19,6 +22,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Date;
 
 @SpringBootTest
 class ComplaintServiceTests {
@@ -29,8 +34,12 @@ class ComplaintServiceTests {
     @Autowired
     private ComplaintRepository complaintRepository;
 
+    @Autowired
+    private FacilityRepository facilityRepository;
+
     private Complaint complaint1;
     private Complaint complaint2;
+    private Facility facility1;
 
     @BeforeEach
     void setUp() {
@@ -41,6 +50,7 @@ class ComplaintServiceTests {
         int filterCategory = 0;
         FacilityNoVO facilityNoVO = new FacilityNoVO(1L);
         ProcessingStatus processingStatus = ProcessingStatus.fromInt(0);
+        CoordinateVO coordinateVO = new CoordinateVO(1.0, 1.2);
 
         complaint1 = complaintRepository.save(new Complaint.Builder()
                 .complaintContent(complaintContent)
@@ -48,6 +58,7 @@ class ComplaintServiceTests {
                 .facilityNoVO(facilityNoVO)
                 .filterCategory(FilterCategory.fromInt(filterCategory))
                 .phoneNumber(phoneNumber)
+                .date(new Date())
                 .build());
 
         complaintRepository.saveAndFlush(complaint1);
@@ -58,6 +69,16 @@ class ComplaintServiceTests {
                 .facilityNoVO(facilityNoVO)
                 .filterCategory(FilterCategory.fromInt(filterCategory))
                 .phoneNumber(phoneNumber)
+                .date(new Date())
+                .build());
+
+        facility1 = facilityRepository.save(new Facility.Builder()
+                .administrativeDong("administrativeDong")
+                .coordinateVO(coordinateVO)
+                .departmentName("departmentName")
+                .facilityAddress("facilityAddress")
+                .facilityCategory("facilityCategory")
+                .facilityQRUrl("QR Url")
                 .build());
 
         complaintRepository.saveAndFlush(complaint2);
@@ -87,11 +108,11 @@ class ComplaintServiceTests {
         long beforeCnt = complaintRepository.count();
         CreateComplaintResponse response = complaintService.createComplaint(request);
         long afterCnt = complaintRepository.count();
-        Complaint savedComplaint = complaintRepository.findById(response.getComplaintNo()).get();
+        Complaint savedComplaint = complaintRepository.findById(response.complaintNo()).get();
 
         // then
         Assertions.assertEquals(beforeCnt + 1, afterCnt);
-        Assertions.assertEquals(complaintContent, response.getComplaintContent());
+        Assertions.assertEquals(complaintContent, response.complaintContent());
         Assertions.assertEquals(FilterCategory.fromInt(1).getText(), savedComplaint.getFilterCategory().getText());
 
     }
@@ -104,15 +125,15 @@ class ComplaintServiceTests {
         // given
         int processingStatus = 1;
         Long complaintNo = complaint1.getComplaintNo();
-        UpdateProcessingStatusRequest request = new UpdateProcessingStatusRequest(processingStatus, complaintNo);
+        UpdateProcessingStatusRequest request = new UpdateProcessingStatusRequest(processingStatus);
 
         // when
-        UpdateProcessingStatusResponse response = complaintService.updateProcessingStatus(request);
+        UpdateProcessingStatusResponse response = complaintService.updateProcessingStatus(request, complaintNo);
 
         // then
-        Assertions.assertEquals(ProcessingStatus.fromInt(processingStatus).getText(), response.getProcessingStatusText());
-        Assertions.assertEquals(complaintNo, response.getComplaintNo());
-        Assertions.assertEquals(processingStatus, response.getProcessingStatusNum());
+        Assertions.assertEquals(ProcessingStatus.fromInt(processingStatus).getText(), response.processingStatusText());
+        Assertions.assertEquals(complaintNo, response.complaintNo());
+        Assertions.assertEquals(processingStatus, response.processingStatusNum());
     }
 
     @Test
@@ -143,8 +164,8 @@ class ComplaintServiceTests {
         GetComplaintResponse response = complaintService.getComplaint(complaintNo);
 
         //then
-        Assertions.assertEquals(complaint1.getComplaintContent(), response.getComplaintContext());
-        Assertions.assertEquals(complaint1.getProcessingStatus().getText(), response.getProcessingStatus());
-        Assertions.assertEquals(complaint1.getFilterCategory().getText(), response.getFilterCategory());
+        Assertions.assertEquals(complaint1.getComplaintContent(), response.complaintContext());
+        Assertions.assertEquals(complaint1.getProcessingStatus().getText(), response.processingStatus());
+        Assertions.assertEquals(complaint1.getFilterCategory().getText(), response.filterCategory());
     }
 }
