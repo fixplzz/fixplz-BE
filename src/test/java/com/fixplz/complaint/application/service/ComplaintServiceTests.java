@@ -22,7 +22,9 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.Date;
 
 @SpringBootTest
@@ -92,7 +94,7 @@ class ComplaintServiceTests {
     @Test
     @Transactional
     @DisplayName("민원 생성 : success")
-    void createComplaint() {
+    void createComplaint() throws IOException {
 
 
         // given
@@ -102,7 +104,7 @@ class ComplaintServiceTests {
         Long facilityNo = 1L;
         // 이미지 추가
 
-        CreateComplaintRequest request = new CreateComplaintRequest(complaintContent, filterCategory, phoneNumber, facilityNo);
+        CreateComplaintRequest request = CreateComplaintRequest.exceptImage(complaintContent, filterCategory, phoneNumber, facilityNo);
 
         // when
         long beforeCnt = complaintRepository.count();

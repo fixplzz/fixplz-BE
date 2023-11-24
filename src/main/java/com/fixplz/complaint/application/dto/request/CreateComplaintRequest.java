@@ -18,4 +18,14 @@ public record CreateComplaintRequest (
                 facilityNo
         );
     }
+
+    public static CreateComplaintRequest exceptImage(String complaintContent, int filterCategory, String phoneNumber, Long facilityNo) {
+        return new CreateComplaintRequest(
+                null,
+                complaintContent,
+                filterCategory,
+                phoneNumber,
+                facilityNo
+        );
+    }
 }

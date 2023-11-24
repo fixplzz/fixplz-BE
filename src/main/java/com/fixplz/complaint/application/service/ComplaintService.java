@@ -41,7 +41,7 @@ public class ComplaintService {
         String complaintImageUrl = "none";
 
         // 이미지 처리
-        if (!request.image().isEmpty()) {
+        if (request.image() != null) {
             complaintImageUrl = s3Service.uploadComplaintImage(request.image(), request.phoneNumber());
         }
 
