@@ -9,19 +9,17 @@ import com.fixplz.complaint.domain.aggregate.vo.FilterCategory;
 import com.fixplz.complaint.domain.aggregate.vo.ProcessingStatus;
 import com.fixplz.complaint.domain.repository.ComplaintRepository;
 import com.fixplz.complaint.infra.service.ComplaintInfraService;
-import com.fixplz.facility.domain.aggregate.enumtype.FacilityCategory;
+import com.fixplz.complaint.infra.service.S3Service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.io.Serializable;
-import java.util.ArrayList;
+import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @Service
@@ -30,16 +28,22 @@ public class ComplaintService {
 
     private final ComplaintRepository complaintRepository;
     private final ComplaintInfraService complaintInfraService;
+    private final S3Service s3Service;
 
     // 민원 생성
     @Transactional
-    public CreateComplaintResponse createComplaint(CreateComplaintRequest request) {
+    public CreateComplaintResponse createComplaint(CreateComplaintRequest request) throws IOException {
 
         FilterCategory filterCategory = FilterCategory.fromInt(request.filterCategory());
 
         FacilityNoVO facilityNoVO = new FacilityNoVO(request.facilityNo());
 
-        // 이미지 처리?
+        String complaintImageUrl = "none";
+
+        // 이미지 처리
+        if (request.image() != null) {
+            complaintImageUrl = s3Service.uploadComplaintImage(request.image(), request.phoneNumber());
+        }
 
         Complaint complaint = new Complaint.Builder()
                 .complaintContent(request.complaintContent())
@@ -48,6 +52,7 @@ public class ComplaintService {
                 .filterCategory(filterCategory)
                 .facilityNoVO(facilityNoVO)
                 .processingStatus(ProcessingStatus.TODO)
+                .complaintImage(complaintImageUrl)
                 .build();
 
         Complaint createdComplaint = complaintRepository.save(complaint);
@@ -112,7 +117,6 @@ public class ComplaintService {
                 .toList();
 
         GetComplaintPageInfo response = new GetComplaintPageInfo(facilityInfo, filterCategoryList);
-        System.out.println("response = " + response);
 
         return response;
     }
